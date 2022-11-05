@@ -1,14 +1,16 @@
-﻿partial class Program8405
+﻿namespace dotNet5783_8405_0000;
+
+partial class Program
 {
     public  static  void Main()
     {
-        Hellow8405();
-        Hellow0000();
+        Hello8405();
+        Hello0000();
         Console.ReadLine();
     }
-    static partial void Hellow0000();
+    static partial void Hello0000();
 
- static void Hellow8405()
+ static void Hello8405()
     {
         Console.WriteLine("Hello, whats your name?");
 
