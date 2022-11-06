@@ -30,14 +30,14 @@ namespace DAL
         }
 
 
-        internal static   Product?[] products = new Product?[50];
+        internal static Product?[] products = new Product?[50];
         internal static Order? [] orders = new Order?[100];
         internal static OrderItem?[] OItems = new OrderItem?[200];
         static  DataSource()
         {
             s_Initialize();
         }
-       static  void s_Initialize()
+        static  void s_Initialize()
         {
             generateProducts ();
         }
@@ -57,33 +57,33 @@ namespace DAL
                     };
             }
         }
-        private static int getUniqueProductId()
-        {
-            int rnd = rand.Next(100000, 999999);
-            while (products.Any(p => p.ID == rnd))
-                rnd = rand.Next(100000, 999999);
-            return rnd;
-        }
     
         static void generateOrders()
         {
         
         }
 
-        private void generateOrderItems()
+        static void generateOrderItems()
         {
-            for (int i = 0; i < 10; i++)
-            {
-                Product? product = products[rand.Next(Config.NextOrderId)];
-                _orderItems.Add(
-                    new OrderItem
-                    {
-                        OrderID = s_rand.Next(Config.NextOrderId, Config.NextOrderId + _orders.Count),
-                        ProductID = product?.ID ?? 0,
-                        Price = product?.Price ?? 0,
-                        Amount = s_rand.Next(5),
-                    });
-            }
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Product? product = products[rand.Next(Config.NextOrderId)];
+            //    orderItems.Add(
+            //        new OrderItem
+            //        {
+            //            OrderID = s_rand.Next(Config.NextOrderId, Config.NextOrderId + _orders.Count),
+            //            ProductID = product?.ID ?? 0,
+            //            Price = product?.Price ?? 0,
+            //            Amount = s_rand.Next(5),
+            //        });
+            //}
+        }
+        internal  static int getUniqueProductId()
+        {
+            int rnd = rand.Next(100000, 999999);
+            while (products.Any(p => p.num == rnd))
+                rnd = rand.Next(100000, 999999);
+            return rnd;
         }
 
 

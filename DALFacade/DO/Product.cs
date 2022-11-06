@@ -5,6 +5,7 @@
 /// </summary>
 public struct Product
 {
+    
     /// <summary>
     /// Unique ID of product
     /// </summary>
