@@ -7,21 +7,32 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class DataSource
+    internal static  class DataSource
     {
-        private readonly static Random s_rand = new();
+        private readonly static Random rand = new();
 
         internal static class Config
         {
-            internal const int s_startOrderNumber = 1000;
-            private static int s_nextOrderNumber = s_startOrderNumber;
-            internal static int NextOrderNumber { get => ++s_nextOrderNumber; }
+            internal static  int NextOrderId = 1000;
+            private static int nextOrderFreeLocation = 0;
+            internal static int NextOrderFreeLocation { get => nextOrderFreeLocation++; }
+
+            internal static int NextOrderDeatilId = 1000;
+            private static int nextOrderDeatilFreeLocation = 0;
+            internal static int NextOrderDeatilFreeLocation { get => nextOrderDeatilFreeLocation++; }
+
+
+            private static int nextProductFreeLocation = 0;
+            internal static int NextProductFreeLocation { get => nextProductFreeLocation++; }
+            internal static int AutoNextProductFreeLocation { get =>Array.IndexOf(products, products.FirstOrDefault (a=>a==null)); }
+
+
         }
 
 
-        Product[] products = new Product[50];
-        Order [] orders = new Order[100];
-        OrderItem[] OItems = new OrderItem[200];
+        internal static   Product?[] products = new Product?[50];
+        internal static Order? [] orders = new Order?[100];
+        internal static OrderItem?[] OItems = new OrderItem?[200];
         static  DataSource()
         {
             s_Initialize();
@@ -30,12 +41,51 @@ namespace DAL
         {
             generateProducts ();
         }
-       static  void generateProducts()
+        static void generateProducts()
         {
-            for (int i = 0; i < 100; i++)
+            string[,] productsNames = new[,] { { "Grass seeds", "Portulaka seeds", "Wheet seeds", "onion seeds" }, { "Roze", "Mini rose", "Vinka", "Sitvanit" } };
+            for (int i = 0; i < 10; i++)
             {
-
+                products[i] =
+                    new Product()
+                    {
+                        ID = getUniqueProductId(),
+                        Name = productsNames[rand.Next(0, 4), 0],
+                        Price = rand.Next(200),
+                        Category = Category.Seeds,
+                        InStock = rand.Next(50),
+                    };
             }
         }
+        private static int getUniqueProductId()
+        {
+            int rnd = rand.Next(100000, 999999);
+            while (products.Any(p => p.ID == rnd))
+                rnd = rand.Next(100000, 999999);
+            return rnd;
+        }
+    
+        static void generateOrders()
+        {
+        
+        }
+
+        private void generateOrderItems()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Product? product = products[rand.Next(Config.NextOrderId)];
+                _orderItems.Add(
+                    new OrderItem
+                    {
+                        OrderID = s_rand.Next(Config.NextOrderId, Config.NextOrderId + _orders.Count),
+                        ProductID = product?.ID ?? 0,
+                        Price = product?.Price ?? 0,
+                        Amount = s_rand.Next(5),
+                    });
+            }
+        }
+
+
     }
-}
+}}
