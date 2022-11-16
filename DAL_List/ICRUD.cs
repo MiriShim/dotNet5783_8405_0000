@@ -1,6 +1,6 @@
 ﻿namespace DAL
 {
-    internal interface   class  ICRUD<T>
+    internal interface    ICRUD<T>
     {
         
         List<T> GetAll();   

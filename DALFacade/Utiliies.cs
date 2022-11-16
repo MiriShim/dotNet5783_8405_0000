@@ -18,9 +18,9 @@ namespace DAL_Facade
         
     }
 
-  //  העתקה עמוקה גנרית, כפונקציית הרחבה
+    //  העתקה עמוקה גנרית, כפונקציית הרחבה
 
-namespace DL
+    namespace DL
     {
         static class Cloning
         {
@@ -38,6 +38,5 @@ namespace DL
 
 
         }
-
+    }
     
-}

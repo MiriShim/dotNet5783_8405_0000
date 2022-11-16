@@ -24,6 +24,8 @@ namespace DAL
 
             private static int nextProductFreeLocation = 0;
             internal static int NextProductFreeLocation { get => nextProductFreeLocation++; }
+            //todo::
+            //בכל גישה הערך יגדל ויגרמו רווחים
             internal static int AutoNextProductFreeLocation { get =>Array.IndexOf(products, products.FirstOrDefault (a=>a==null)); }
 
 

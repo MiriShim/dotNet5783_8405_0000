@@ -13,14 +13,15 @@ internal class DALProduct : ICRUD<Product>
     {
         //var np = new Product() { Name = "Hamania", Category = Category.Flowers, Price = 4, InStock = 22 };
         entity.ID = DataSource.getUniqueProductId();
-        DataSource.products[DataSource.Config.NextProductFreeLocation] = entity ;
-        return entity ;
-
+        DataSource.products[DataSource.Config.NextProductFreeLocation] = entity;
+        return entity;
+    }
 
     public List<Product> GetAll()
     {
-        throw new NotImplementedException();
-    }
+        Product?[] arr=new Product?[DataSource.Config.NextProductFreeLocation];
+        Array.Copy(DataSource.products,arr,DataSource.Config.NextProductFreeLocation)
+        return DataSource.products.CopyTo 
 
     public Product GetById(int id)
     {
