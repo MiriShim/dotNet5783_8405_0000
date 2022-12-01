@@ -10,6 +10,7 @@
 	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
 	<RootNamespace>DAL</RootNamespace>
+	  
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DALFacade\DAL_Facade.csproj" />
+    <ProjectReference Include="..\DALFacade\DALFacade.csproj" />
   </ItemGroup>
 
 </Project>

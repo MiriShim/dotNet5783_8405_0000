@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text;
 
-namespace DAL_Facade
+namespace DALFacade
 {
     //    קוד לביצוע tostring במתודת הרחבה ע"י reflection
 

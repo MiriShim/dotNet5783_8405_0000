@@ -17,11 +17,27 @@ internal class DALProduct : ICRUD<Product>
         return entity;
     }
 
-    public List<Product> GetAll()
+    public Product[] GetAll()
     {
-        Product?[] arr=new Product?[DataSource.Config.NextProductFreeLocation];
-        Array.Copy(DataSource.products,arr,DataSource.Config.NextProductFreeLocation)
-        return DataSource.products.CopyTo 
+        Product[] arr= new Product[DataSource.products.Length];
+        Array.Copy(DataSource.products, arr,0);
+        return arr;
+    }
+    public Product? GetById(int id)
+    {
+        return DataSource.products.Single (p => (p.HasValue && p.Value.ID ==id) ) ;
+    }
+
+    public bool Remove(int id)
+    {
+        return false;
+    }
+
+    public Product Update(Product entity)
+    {
+        throw new NotImplementedException();
+    }
+}
 
     public Product GetById(int id)
     {

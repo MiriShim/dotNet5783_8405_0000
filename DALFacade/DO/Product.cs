@@ -37,4 +37,6 @@ public struct Product
         {nameof(Price)}: {Price}
         {nameof(InStock )}: {InStock}
 ";
+
+
 }
