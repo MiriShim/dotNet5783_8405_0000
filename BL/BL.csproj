@@ -1,23 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
+	  <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
 	<OutputPath>$(SolutionDir)\bin\</OutputPath>
 	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
-	<RootNamespace>DAL</RootNamespace>
-	  
-  </PropertyGroup>
+	<RootNamespace />
+	  <BaseOutputPath>$(SolutionDir)\bin\</BaseOutputPath>
 
-  <ItemGroup>
-    <Compile Remove="bin\**" />
-    <EmbeddedResource Remove="bin\**" />
-    <None Remove="bin\**" />
-  </ItemGroup>
+	  <OutputPath>$(SolutionDir)\bin\</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	  <UseCommonOutputDirectory>true</UseCommonOutputDirectory>
+ 
+	  <RootNamespace />
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
@@ -25,6 +27,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DALFacade\DALFacade.csproj" />
+    <ProjectReference Include="..\DAL_List\DALList.csproj" />
+    <ProjectReference Include="..\InputLibrary\InputLibrary.csproj" />
   </ItemGroup>
 
 </Project>

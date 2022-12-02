@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalAPI;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    internal class OrderDal : IOrderDal
+    internal class OrderCRUD : IOrderCRUD
     {
          public Order Add(Order entity)
         {
             entity.ID = DataSource.Config.NextOrderId;
-            DataSource.orders [DataSource.Config.NextOrderFreeLocation] = entity;
+            DataSource.Orders.Add(  entity);
  
             return entity;
         }
 
-        public List<Order> GetAll()
+        public IEnumerable <Order> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -36,5 +37,7 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
+
+      
     }
 }

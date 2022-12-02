@@ -1,9 +1,9 @@
-﻿namespace DAL
+﻿namespace DalAPI
 {
-    internal interface    ICRUD<T>
+   public  interface ICRUD<T>
     {
         
-        List<T> GetAll();   
+        IEnumerable <T> GetAll();   
 
         T Add(T entity);
         T GetById(int id);

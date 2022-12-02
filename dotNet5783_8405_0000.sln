@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALList", "DAL_List\DALList
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALFacade", "DALFacade\DALFacade.csproj", "{3CE314F1-5CA6-454D-981F-432D02679121}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{392E8BFA-5AD5-4949-83A0-15A3EB8C49C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{392E8BFA-5AD5-4949-83A0-15A3EB8C49C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{853E18FA-FC59-49CA-A0A2-66C083E1D6FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{EE7BB68E-87F5-491F-B6E9-644CBE6FC3CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputLibrary", "InputLibrary\InputLibrary.csproj", "{2F20798C-E412-427B-A550-E4FB2526F827}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{392E8BFA-5AD5-4949-83A0-15A3EB8C49C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{392E8BFA-5AD5-4949-83A0-15A3EB8C49C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{392E8BFA-5AD5-4949-83A0-15A3EB8C49C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{853E18FA-FC59-49CA-A0A2-66C083E1D6FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{853E18FA-FC59-49CA-A0A2-66C083E1D6FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{853E18FA-FC59-49CA-A0A2-66C083E1D6FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{853E18FA-FC59-49CA-A0A2-66C083E1D6FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE7BB68E-87F5-491F-B6E9-644CBE6FC3CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE7BB68E-87F5-491F-B6E9-644CBE6FC3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE7BB68E-87F5-491F-B6E9-644CBE6FC3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE7BB68E-87F5-491F-B6E9-644CBE6FC3CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F20798C-E412-427B-A550-E4FB2526F827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F20798C-E412-427B-A550-E4FB2526F827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F20798C-E412-427B-A550-E4FB2526F827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F20798C-E412-427B-A550-E4FB2526F827}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

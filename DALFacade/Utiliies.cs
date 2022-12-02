@@ -1,27 +1,26 @@
 ﻿using System.Reflection;
 using System.Text;
 
-namespace DALFacade
-{
+namespace DALFacade;
+
     //    קוד לביצוע tostring במתודת הרחבה ע"י reflection
 
-    public static  class Utiliies
+    public static class Utiliies
     {
-       
-            public static string ToStringProperty<T>(this T t)
-            {
+
+        public static string ToStringProperty<T>(this T t)
+        {
             StringBuilder sBuilder = new();
             foreach (PropertyInfo item in typeof(T).GetProperties())
                 sBuilder.AppendLine($"{item.Name} : { item.GetValue(t, null)}"); ;
-                return sBuilder.ToString();
-            }
-        
+            return sBuilder.ToString();
+        }
+
     }
 
     //  העתקה עמוקה גנרית, כפונקציית הרחבה
 
-    namespace DL
-    {
+   
         static class Cloning
         {
 
@@ -37,6 +36,6 @@ namespace DALFacade
             }
 
 
-        }
-    }
+ }
+
     

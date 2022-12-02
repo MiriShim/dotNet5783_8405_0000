@@ -16,23 +16,18 @@ internal static class DataSource
         internal static int NextOrderFreeLocation { get => nextOrderFreeLocation++; }
 
         private static int nextOrderDeatilFreeLocation = 0;
-        internal static int NextOrderDeatilFreeLocation { get => nextOrderDeatilFreeLocation++; }
 
         static int nextOrderItemId = 1000;
         public static int NextOrderItemId { get => ++nextOrderItemId; }
 
 
         private static int nextProductFreeLocation = 0;
-        internal static int NextProductFreeLocation { get => nextProductFreeLocation++; }
-        //todo::
-        //בכל גישה הערך יגדל ויגרמו רווחים
-        internal static int AutoNextProductFreeLocation { get => Array.IndexOf(products, products.FirstOrDefault(a => a == null)); }
     }
 
 
-    internal static Product?[] products = new Product?[50];
-    internal static Order?[] orders = new Order?[100];
-    internal static OrderItem?[] OItems = new OrderItem?[200];
+    internal static List<Product> Products = new();
+    internal static List<Order> Orders = new();
+    internal static List<OrderItem> OrderItems=new();
     static DataSource()
     {
         s_Initialize();
@@ -49,28 +44,28 @@ internal static class DataSource
         //Category.Seeds
         for (int i = 0; i < productsNames.GetLength(1); i++)
         {
-            products[i] = new Product()
+            Products.Add(new Product()
             {
                 ID = getUniqueProductId(),
                 Name = productsNames[0, i],
                 Price = rand.Next(200),
                 Category = Category.Seeds,
                 InStock = rand.Next(50),
-            };
+            });
         }
 
 
         //Category.Flowers
         for (int i = 0; i < productsNames.GetLength(1); i++)
         {
-            products[i] = new Product()
+            Products.Add(new Product()
             {
                 ID = getUniqueProductId(),
                 Name = productsNames[1, i],
                 Price = rand.Next(200),
                 Category = Category.Flowers,
                 InStock = rand.Next(50),
-            };
+            });
         }
     }
 
@@ -79,10 +74,10 @@ internal static class DataSource
         string[] customerNames = new[] { "Sara", "Rivka", "Rachel", "Lea", "Dvora", "Bruria", "Shivra", "Tamar", "Yehudit", "Yocheved" };
         string[] customerAddresses = new[] { "Chazon ish", "Rabi Akiva", "Rachel", "Lea", "Dvora", "Bruria", "Shivra", "Tamar", "Yehudit", "Yocheved" };
 
-        for (int i = 0; i < orders.Length; i++)
+        for (int i = 0; i < Orders.Count ; i++)
         {
             DateTime orderDate = DateTime.Now.AddDays(-rand.Next(50, 100));//לפני 50-100 ימים
-            orders[i] = new Order()
+            Orders.Add( new Order()
             {
                 ID = Config.NextOrderId,
                 OrderDate = orderDate,
@@ -90,7 +85,7 @@ internal static class DataSource
                 CustomerName = customerNames[i - i * 10] + " " + i,
                 CustomerAddress = customerAddresses[i - i * 10] + " " + i,
                 CustomerEmail = $"{customerNames[i - i * 10]}.{customerNames[i - i * 10]}@gmail.com",
-            };
+            });
         }
     }
 
@@ -112,7 +107,7 @@ internal static class DataSource
     internal static int getUniqueProductId()
     {
         int rnd = rand.Next(100000, 999999);
-        while (products.Any(p => p.HasValue && p.Value.ID == rnd))
+        while (Products.Any(p=>p.ID == rnd))
             rnd = rand.Next(100000, 999999);
         return rnd;
     }
