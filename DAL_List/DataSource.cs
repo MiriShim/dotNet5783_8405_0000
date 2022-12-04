@@ -13,21 +13,18 @@ internal static class DataSource
         public static  int NextOrderId { get => ++nextOrderId; }
 
         private static int nextOrderFreeLocation = 0;
-        internal static int NextOrderFreeLocation { get => nextOrderFreeLocation++; }
 
-        private static int nextOrderDeatilFreeLocation = 0;
 
         static int nextOrderItemId = 1000;
         public static int NextOrderItemId { get => ++nextOrderItemId; }
-
-
-        private static int nextProductFreeLocation = 0;
     }
 
 
-    internal static List<Product> Products = new();
-    internal static List<Order> Orders = new();
-    internal static List<OrderItem> OrderItems=new();
+    internal static List<Product?> Products = new();
+    internal static List<Order?> Orders = new();
+    internal static List<OrderItem?> OrderItems=new();
+
+
     static DataSource()
     {
         s_Initialize();
@@ -46,7 +43,7 @@ internal static class DataSource
         {
             Products.Add(new Product()
             {
-                ID = getUniqueProductId(),
+                ID = GetUniqueProductId(),
                 Name = productsNames[0, i],
                 Price = rand.Next(200),
                 Category = Category.Seeds,
@@ -60,7 +57,7 @@ internal static class DataSource
         {
             Products.Add(new Product()
             {
-                ID = getUniqueProductId(),
+                ID = GetUniqueProductId(),
                 Name = productsNames[1, i],
                 Price = rand.Next(200),
                 Category = Category.Flowers,
@@ -89,6 +86,7 @@ internal static class DataSource
         }
     }
 
+
     static void generateOrderItems()
     {
         //for (int i = 0; i < 10; i++)
@@ -104,11 +102,13 @@ internal static class DataSource
         //        });
         //}
     }
-    internal static int getUniqueProductId()
+    internal static int GetUniqueProductId()
     {
         int rnd = rand.Next(100000, 999999);
-        while (Products.Any(p=>p.ID == rnd))
-            rnd = rand.Next(100000, 999999);
+        Product? hh=null;
+        if (hh?.ID == 0)
+            while (Products.Any(p=>p.HasValue && p.Value.ID==rnd ))
+                rnd = rand.Next(100000, 999999);
         return rnd;
     }
 

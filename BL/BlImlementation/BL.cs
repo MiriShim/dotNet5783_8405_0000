@@ -19,8 +19,7 @@ public  class BL : BlApi.IBL
 
     public IOrderTracking OrderTracking => throw new NotImplementedException();
 
-    public IProduct Product => throw new NotImplementedException();
-
+    public IProduct Product => new Product();
     public IProductForList ProductForList => throw new NotImplementedException();
 
     public IProductItem ProductItem => throw new NotImplementedException();

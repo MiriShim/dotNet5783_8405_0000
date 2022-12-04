@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DalAPI
 {
-    public  interface  IProductCRUD : ICRUD<Product>
+    public  interface  IProductCRUD : ICRUD<Product?>
     {
        
 

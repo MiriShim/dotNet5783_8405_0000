@@ -35,17 +35,17 @@ public class BLAutoMapper
 
     public MapperConfiguration ProductMappingConfiguration = new MapperConfiguration(cnf =>
     cnf.CreateMap<BO.Product, DO.Product>()
-    .ForMember(b => b.ID, option => option.MapFrom(d => d.id))
-    .ForMember(b => b.Name, option => option.MapFrom(d => d.name))
+    .ForMember(b => b.ID, option => option.MapFrom(d => d.Id))
+    .ForMember(b => b.Name, option => option.MapFrom(d => d.Name))
     .ForMember(b => b.Category, option => option.MapFrom(d => d.category))
-    .ForMember(b => b.Price, option => option.MapFrom(d => d.price))
-    .ForMember(b => b.InStock, option => option.MapFrom(d => d.inStock))
+    .ForMember(b => b.Price, option => option.MapFrom(d => d.Price))
+    .ForMember(b => b.InStock, option => option.MapFrom(d => d.InStock))
      .ReverseMap()
-    .ForMember(b => b.id, option => option.MapFrom(d => d.ID))
-    .ForMember(b => b.name, option => option.MapFrom(d => d.Name))
+    .ForMember(b => b.Id, option => option.MapFrom(d => d.ID))
+    .ForMember(b => b.Name, option => option.MapFrom(d => d.Name))
     .ForMember(b => b.category, option => option.MapFrom(d => d.Category))
-    .ForMember(b => b.price, option => option.MapFrom(d => d.Price))
-    .ForMember(b => b.inStock, option => option.MapFrom(d => d.InStock))
+    .ForMember(b => b.Price, option => option.MapFrom(d => d.Price))
+    .ForMember(b => b.InStock, option => option.MapFrom(d => d.InStock))
     );
 
     

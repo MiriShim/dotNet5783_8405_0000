@@ -9,7 +9,7 @@ internal class Order : BlApi.IOrder
 {
     private IDal Dal = new DalList();
 
-   // BLAutoMapper autMapper = new BLAutoMapper();
+    BLAutoMapper myMapper = new BLAutoMapper();
 
     public int Add(BO.Order IEntity)
     {
@@ -27,9 +27,9 @@ internal class Order : BlApi.IOrder
         //אם הקלט הוא -1 הוא יחזיר את כל הרשימה של ההזמנות 
         var doOrder = Dal.Order.GetById(id);
 
-        IMapper  mapper = autMapper.OredrMappingConfiguration.CreateMapper();
-        var boOrder=mapper.Map<BO.Order>(doOrder);
-        
+        IMapper mapper = myMapper.OredrMappingConfiguration.CreateMapper();
+        var boOrder = mapper.Map<BO.Order>(doOrder);
+
         return boOrder;
     }
 
@@ -55,7 +55,10 @@ internal class Order : BlApi.IOrder
 
     BO.Order ICRUD<BO.Order>.Add(BO.Order entity)
     {
-        throw new NotImplementedException();
+        IMapper map = myMapper.OredrItemMappingConfiguration.CreateMapper();
+        var r = Dal.Order.Add(map.Map<DO.Order>(entity));
+
+        return map.Map<BO.Order>(r);
     }
 
     BO.Order ICRUD<BO.Order>.Update(BO.Order entity)

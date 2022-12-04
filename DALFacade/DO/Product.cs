@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DO;
 
 /// <summary>
 /// Structure for Product on sale resource
@@ -24,12 +26,12 @@ public struct Product
     /// <summary>
     /// Category of product in the sotre product list
     /// </summary>
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
 
     /// <summary>
     /// How many items of product are in stock for sale
     /// </summary>
-    public int InStock { get; set; }
+    public int? InStock { get; set; }
 
     public override string ToString() => $@"
         {nameof(ID)}={ID}: {Name}, 
@@ -38,5 +40,9 @@ public struct Product
         {nameof(InStock )}: {InStock}
 ";
 
-
+    public override bool Equals(object? obj)
+    {
+        if (obj == null) throw new EntityException();
+        return (obj as Product?).Value.ID .Equals(this.ID) ;
+    }
 }

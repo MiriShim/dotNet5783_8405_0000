@@ -7,7 +7,8 @@ namespace BlImlementation;
 internal class Product : BlApi.IProduct
 {
     private IDal Dal = new DalList();
-    BLAutoMapper AutoMapper = new BLAutoMapper();
+    BLAutoMapper myMapper = new BLAutoMapper();
+
 
     public int Add(BO.Product IEntity)
     {
@@ -19,21 +20,30 @@ internal class Product : BlApi.IProduct
         throw new NotImplementedException();
     }
 
-    public IEnumerable<BO.Product> GetAll()
+    public IEnumerable<BO.Product?> GetAll(Func<BO.Product?, bool>? predicate = null)
     {
-        throw new NotImplementedException();
-    }
+        var products = Dal.Product.GetAll (predicate??null);
 
-    public  BO.Product  GetById(int id)
+        IMapper mapper = myMapper.ProductMappingConfiguration.CreateMapper();
+
+        List<BO.Product> list = new List<BO.Product>();
+ 
+        products.ToList().ForEach(p=>list.Add(mapper.Map<BO.Product >(p)));
+        return list;
+     }
+
+    
+
+    public BO.Product GetById(int id)
     {
-        var doProduct = Dal.Product.GetById (id);
+        var doProduct = Dal.Product.GetById(id);
 
 
-        IMapper mapper = AutoMapper.ProductMappingConfiguration.CreateMapper();
-         
-       return  mapper.Map<BO.Product>(doProduct);
-        
-         
+        IMapper mapper = myMapper.ProductMappingConfiguration.CreateMapper();
+
+        return mapper.Map<BO.Product>(doProduct);
+
+
     }
 
     public bool Remove(int id)
@@ -48,7 +58,10 @@ internal class Product : BlApi.IProduct
 
     BO.Product ICRUD<BO.Product>.Add(BO.Product entity)
     {
-        throw new NotImplementedException();
+        IMapper map = myMapper.ProductMappingConfiguration.CreateMapper();
+        var r = Dal.Product.Add(map.Map<DO.Product>(entity));
+
+        return map.Map<BO.Product>(r);
     }
 
     BO.Product ICRUD<BO.Product>.Update(BO.Product entity)

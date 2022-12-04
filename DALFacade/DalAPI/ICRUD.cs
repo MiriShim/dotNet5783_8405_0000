@@ -3,7 +3,7 @@
    public  interface ICRUD<T>
     {
         
-        IEnumerable <T> GetAll();   
+        IEnumerable<T?> GetAll(Func<T?, bool>? predicate=null);   
 
         T Add(T entity);
         T GetById(int id);
