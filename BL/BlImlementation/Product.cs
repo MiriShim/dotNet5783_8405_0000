@@ -22,13 +22,14 @@ internal class Product : BlApi.IProduct
 
     public IEnumerable<BO.Product?> GetAll(Func<BO.Product?, bool>? predicate = null)
     {
-        var products = Dal.Product.GetAll (predicate??null);
+        MapperConfiguration ProductMappingConfiguration = new(cnf =>
+            cnf.CreateMap<BO.Product, DO.Product>().ReverseMap()) ;
 
-        IMapper mapper = myMapper.ProductMappingConfiguration.CreateMapper();
+        IMapper mapper = ProductMappingConfiguration.CreateMapper();
 
         List<BO.Product> list = new List<BO.Product>();
- 
-        products.ToList().ForEach(p=>list.Add(mapper.Map<BO.Product >(p)));
+
+        Dal.Product.GetAll().ToList().ForEach(p=>list.Add(mapper.Map<BO.Product >(p)));
         return list;
      }
 

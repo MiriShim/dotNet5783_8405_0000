@@ -17,6 +17,11 @@ internal class ProductItem : BlApi.IProduct
         throw new NotImplementedException();
     }
 
+    public IEnumerable<BO.Product?> GetAll(Func<BO.Product?, bool>? predicate = null)
+    {
+        throw new NotImplementedException();
+    }
+
     public BO.Product GetById(int id)
     {
         throw new NotImplementedException();

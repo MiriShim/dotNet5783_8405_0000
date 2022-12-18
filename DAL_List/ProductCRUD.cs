@@ -12,8 +12,6 @@ namespace DAL;
 
 internal class ProductCRUD : IProductCRUD
 {
-    
-
     public bool Remove(int id)
     {
         return false;
@@ -57,5 +55,8 @@ internal class ProductCRUD : IProductCRUD
         return DataSource.Products.Single(p => (p.HasValue && p.Value.ID == id)) ?? throw new EntityNotFoundException();
     }
 
-  
+    Product? ICRUD<Product?>.Update(Product? entity)
+    {
+        throw new NotImplementedException();
+    }
 }

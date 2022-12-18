@@ -38,6 +38,11 @@ internal class Order : BlApi.IOrder
         throw new NotImplementedException();
     }
 
+    public IEnumerable<BO.Order?> GetAll(Func<BO.Order?, bool>? predicate = null)
+    {
+        throw new NotImplementedException();
+    }
+
     public BO.Order GetById(int id)
     {
         throw new NotImplementedException();

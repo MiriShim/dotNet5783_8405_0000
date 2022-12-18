@@ -27,6 +27,11 @@ internal class OrderItem: IOrderItem
         throw new NotImplementedException();
     }
 
+    public IEnumerable<BO.OrderItem?> GetAll(Func<BO.OrderItem?, bool>? predicate = null)
+    {
+        throw new NotImplementedException();
+    }
+
     public BO.OrderItem GetById(int id)
     {
         throw new NotImplementedException();
