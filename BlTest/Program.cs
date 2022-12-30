@@ -1,14 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BlApi;
+
 using InputLibrary;
 
-Console.WriteLine("Hello, World!");
+Console.ReadLine();
+
 
 IBL bl = new BlImlementation.BL();
 
 
 BO.Order order = new BO.Order() { Status =BO.OrderStatus.Recived,CustumerAdress="aaaaaaaa",CustomerEmail="dsdsdsd",CustomerName="Tamara"};
 BO.Product  product = new BO.Product () {   Price=99.99,InStock=99,category=BO.Category.Nails ,Name="Geranume"};
+
 
 bl.Product .Add(product  );
 

@@ -2,6 +2,7 @@
 
 namespace DO;
 
+
 /// <summary>
 /// Structure for Product on sale resource
 /// </summary>
