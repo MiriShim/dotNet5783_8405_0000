@@ -1,23 +1,25 @@
-﻿using DAL;
+﻿using BlApi;
+using BO;
+using DAL;
 using DalAPI;
 
 namespace BlImlementation;
 
-internal class ProductItem : BlApi.IProduct
+internal class ProductForListServices: IProductForList
 {
     private IDal Dal = new DalList();
 
-    public BO.Product Add(BO.Product entity)
+    public ProductForList Add(ProductForList entity)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<BO.Product> GetAll()
+    public IEnumerable<ProductForList?> GetAll(Func<ProductForList?, bool>? predicate = null)
     {
         throw new NotImplementedException();
     }
 
-    public BO.Product GetById(int id)
+    public ProductForList GetById(int id)
     {
         throw new NotImplementedException();
     }
@@ -27,7 +29,7 @@ internal class ProductItem : BlApi.IProduct
         throw new NotImplementedException();
     }
 
-    public BO.Product Update(BO.Product entity)
+    public ProductForList Update(ProductForList entity)
     {
         throw new NotImplementedException();
     }

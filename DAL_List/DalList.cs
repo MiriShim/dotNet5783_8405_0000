@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public  class DalList : IDal
+    public class DalList : IDal
     {
-        public IProductCRUD  Product => new ProductCRUD();
-
+        public IProductCRUD Product => new ProductCRUD();
 
         public IOrderItemCRUD OrderItem => throw new NotImplementedException();
 
- 
+        public IOrderCRUD Order => new OrderCRUD();
 
-       public  IOrderCRUD Order => throw new NotImplementedException();
-
-        DalAPI.IOrderCRUD IDal.Order => throw new NotImplementedException();
     }
 }

@@ -18,11 +18,12 @@ namespace BO;
     }
     public enum Category
     {
-        Makeup = 1,
-        Perfume,
-        Creams,
-        Nails,
-        Hygiene
+    All=0,
+        Flowers = 1,
+        Seeds,
+        Pkaat,
+        Tree,
+    Fertilizer
 
 }
 

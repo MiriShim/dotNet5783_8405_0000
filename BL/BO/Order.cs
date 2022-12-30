@@ -11,7 +11,7 @@ public class Order
     public int id { get; set; }
     public string CustomerName { get; set; }
     public string CustomerEmail { get; set; }
-    public string CastumerAdress { get; set; }
+    public string CustumerAdress { get; set; }
     public DateTime OrderDate { get; set; }
     public OrderStatus Status { get; set; }
     public DateTime PaymentDate { get; set; }
@@ -24,7 +24,7 @@ public class Order
 id = {id},
 castumerName = {CustomerName},
 castumerEamil = {CustomerEmail},
-castumerAdress = {CastumerAdress},
+castumerAdress = {CustumerAdress},
 orderDate = {OrderDate},
 status = {Status},
 paymentDate = {PaymentDate},
