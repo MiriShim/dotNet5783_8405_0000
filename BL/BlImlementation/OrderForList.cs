@@ -6,5 +6,5 @@ namespace BlImlementation;
 
 internal class OrderForList: IOrderForList
 {
-    private IDal Dal = new DalList();
+    private IDal? dal = DalAPI.Factory.GetDal();
 }

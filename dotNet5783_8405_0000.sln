@@ -17,7 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputLibrary", "InputLibrary\InputLibrary.csproj", "{2F20798C-E412-427B-A550-E4FB2526F827}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lessons", "Lessons\Lessons.csproj", "{B7784530-A80D-419F-BC2A-F66877282D7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{4A721E6D-98B7-47C0-9361-11F90ADA3CCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML", "XML", "{A9CB95D7-AA76-434B-A9F9-9CF776461F1B}"
+	ProjectSection(SolutionItems) = preProject
+		XML\dal_config.xml = XML\dal_config.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALXml", "DALXml\DALXml.csproj", "{455724BA-6667-4FD8-B29E-B298CF503EBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +60,6 @@ Global
 		{2F20798C-E412-427B-A550-E4FB2526F827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F20798C-E412-427B-A550-E4FB2526F827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F20798C-E412-427B-A550-E4FB2526F827}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7784530-A80D-419F-BC2A-F66877282D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7784530-A80D-419F-BC2A-F66877282D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7784530-A80D-419F-BC2A-F66877282D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7784530-A80D-419F-BC2A-F66877282D7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

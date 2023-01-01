@@ -7,5 +7,5 @@ namespace BlImlementation;
 
 internal class Cart: ICart
 {
-    private IDal Dal = new DalList();
+    private IDal? dal = DalAPI.Factory.GetDal();
 }

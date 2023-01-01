@@ -9,7 +9,8 @@ namespace BlImlementation;
 
 internal class OrderItem: IOrderItem
 {
-    private IDal dal = new DalList();
+    private IDal? dal = DalAPI.Factory.GetDal();
+ 
     BLAutoMapper AutoMapper = new BLAutoMapper();
 
     public int Add(BO.OrderItem IEntity)
@@ -23,6 +24,11 @@ internal class OrderItem: IOrderItem
     }
 
     public IEnumerable<BO.OrderItem> GetAll()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<BO.OrderItem?> GetAll(Func<BO.OrderItem?, bool>? predicate = null)
     {
         throw new NotImplementedException();
     }

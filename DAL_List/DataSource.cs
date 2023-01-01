@@ -43,7 +43,7 @@ internal static class DataSource
         {
             Products.Add(new Product()
             {
-                ID = GetUniqueProductId(),
+                Id = GetUniqueProductId(),
                 Name = productsNames[0, i],
                 Price = rand.Next(200),
                 Category = Category.Seeds,
@@ -57,7 +57,7 @@ internal static class DataSource
         {
             Products.Add(new Product()
             {
-                ID = GetUniqueProductId(),
+                Id = GetUniqueProductId(),
                 Name = productsNames[1, i],
                 Price = rand.Next(200),
                 Category = Category.Flowers,
@@ -106,8 +106,8 @@ internal static class DataSource
     {
         int rnd = rand.Next(100000, 999999);
         Product? hh=null;
-        if (hh?.ID == 0)
-            while (Products.Any(p=>p.HasValue && p.Value.ID==rnd ))
+        if (hh?.Id == 0)
+            while (Products.Any(p=>p.HasValue && p.Value.Id==rnd ))
                 rnd = rand.Next(100000, 999999);
         return rnd;
     }

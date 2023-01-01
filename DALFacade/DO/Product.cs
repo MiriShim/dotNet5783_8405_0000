@@ -2,6 +2,7 @@
 
 namespace DO;
 
+
 /// <summary>
 /// Structure for Product on sale resource
 /// </summary>
@@ -11,7 +12,7 @@ public struct Product
     /// <summary>
     /// Unique ID of product
     /// </summary>
-    public int ID { get; set; }
+    public int Id { get; set; }
 
     /// <summary>
     /// Descriptive name of product
@@ -34,7 +35,7 @@ public struct Product
     public int? InStock { get; set; }
 
     public override string ToString() => $@"
-        {nameof(ID)}={ID}: {Name}, 
+        {nameof(Id)}={Id}: {Name}, 
         {nameof(Category )} - {Category}
         {nameof(Price)}: {Price}
         {nameof(InStock )}: {InStock}
@@ -43,6 +44,6 @@ public struct Product
     public override bool Equals(object? obj)
     {
         if (obj == null) throw new EntityException();
-        return (obj as Product?).Value.ID .Equals(this.ID) ;
+        return (obj as Product?).Value.Id .Equals(this.Id) ;
     }
 }

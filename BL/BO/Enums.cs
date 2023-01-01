@@ -18,11 +18,30 @@ namespace BO;
     }
     public enum Category
     {
-        Makeup = 1,
-        Perfume,
-        Creams,
-        Nails,
-        Hygiene
+    All=0,
+    Flowers,
+    Seeds,
+    Trees,
+    /// <summary>
+    /// עציצים
+    /// </summary>
+    Pots,
+    /// <summary>
+    /// כלי גינון
+    /// </summary>
+    GardeningTools,
+    /// <summary>
+    /// פקעות
+    /// </summary>
+    Tubers,
+    /// <summary>
+    /// תערובת שתילה
+    /// </summary>
+    plantingMixture,
+    /// <summary>
+    /// דשן
+    /// </summary>
+    Fertilizer
 
 }
 

@@ -27,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DALFacade\DALFacade.csproj" />
     <ProjectReference Include="..\DAL_List\DALList.csproj" />
-    <ProjectReference Include="..\InputLibrary\InputLibrary.csproj" />
   </ItemGroup>
 
 </Project>

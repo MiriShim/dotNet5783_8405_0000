@@ -21,7 +21,9 @@ namespace DAL
             return entity;
         }
 
-        public IEnumerable <Order> GetAll()
+         
+
+        public IEnumerable<Order> GetAll(Func<Order, bool>? predicate = null)
         {
             throw new NotImplementedException();
         }

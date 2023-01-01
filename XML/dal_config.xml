@@ -1,0 +1,9 @@
+<config>
+	<dal>list</dal>
+	<!--<dal>xml</dal>-->
+	<dal-packages>
+		<list>DALList</list>
+		<xml>DALXml</xml>
+		<sql>DALSql</sql>
+	</dal-packages>
+</config>
