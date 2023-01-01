@@ -11,6 +11,7 @@ public class EntityException : Exception
 {
     public int? EntityId { get; set; }
     public object? Entity { get; set; }
+   
     public EntityException()
     {
     }

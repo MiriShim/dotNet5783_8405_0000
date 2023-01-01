@@ -12,6 +12,9 @@ namespace DAL
     {
          public Order Add(Order entity)
         {
+            if (DataSource.Orders.Any(a => a.HasValue && a.Value.ID == entity.ID)) 
+                throw new DuplicateIdException("ערך כפול לא ניתן להכניס.") {Entity=entity ,EntityId=entity.ID  };
+
             entity.ID = DataSource.Config.NextOrderId;
             DataSource.Orders.Add(  entity);
  
@@ -19,6 +22,11 @@ namespace DAL
         }
 
         public IEnumerable <Order> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Order> GetAll(Func<Order, bool>? predicate = null)
         {
             throw new NotImplementedException();
         }

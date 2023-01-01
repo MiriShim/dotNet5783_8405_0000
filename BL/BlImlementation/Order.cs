@@ -2,6 +2,7 @@
 using BlApi;
 using DAL;
 using DalAPI;
+using DO;
 
 namespace BlImlementation;
 
@@ -56,8 +57,15 @@ internal class Order : BlApi.IOrder
     BO.Order ICRUD<BO.Order>.Add(BO.Order entity)
     {
         IMapper map = myMapper.OredrItemMappingConfiguration.CreateMapper();
-        var r = Dal.Order.Add(map.Map<DO.Order>(entity));
-
+        DO.Order r;
+        try
+        {
+           r= Dal.Order.Add(map.Map<DO.Order>(entity));
+        }
+        catch (DuplicateIdException ex)
+        {
+            throw new Exception("שגיאה משכבת השרות",ex);
+        }
         return map.Map<BO.Order>(r);
     }
 

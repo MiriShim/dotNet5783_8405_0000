@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using BlApi;
+using DO;
 using InputLibrary;
 
 Console.WriteLine("Hello, World!");
@@ -9,9 +10,14 @@ IBL bl = new BlImlementation.BL();
 
 BO.Order order = new BO.Order() { Status =BO.OrderStatus.Recived,CastumerAdress="aaaaaaaa",CustomerEmail="dsdsdsd",CustomerName="Tamara"};
 BO.Product  product = new BO.Product () {   Price=99.99,InStock=99,category=BO.Category.Nails ,Name="Geranume"};
-
-bl.Product .Add(product  );
-
+try
+{
+    bl.Product.Add(product);
+}
+catch (Exception  eee)
+{
+    Console.WriteLine(eee.Message + eee?.InnerException?.Message +(eee as DuplicateIdException )?.EntityId  );
+}
 //Input.ReadInt("Input OK");
 
 bl.Product .GetAll().ToList().ForEach(o=>Console.WriteLine(o));
