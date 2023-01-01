@@ -6,8 +6,8 @@ namespace BlImlementation;
 
 internal class ProductServices : BlApi.IProduct
 {
-    private IDal dalRep = new DalList();
-  
+    private IDal? dal = DalAPI.Factory.GetDal();
+
     public void Delete(BO.Product IEntity)
     {
         throw new NotImplementedException();
@@ -15,7 +15,7 @@ internal class ProductServices : BlApi.IProduct
 
     public IEnumerable<BO.Product?> GetAll(Func<BO.Product?, bool>? predicate = null)
     {
-        var products = dalRep.Product.GetAll();
+        var products = dal?.Product.GetAll() ?? throw new DO.DalNotFoundException() ;
 
         IMapper mapper = BLAutoMapper.ProductMappingConfiguration.CreateMapper();
 
@@ -30,7 +30,7 @@ internal class ProductServices : BlApi.IProduct
 
     public BO.Product GetById(int id)
     {
-        var doProduct = dalRep.Product.GetById(id);
+        var doProduct = dal?.Product.GetById(id);
 
 
         IMapper mapper = BLAutoMapper.ProductMappingConfiguration.CreateMapper();
@@ -53,7 +53,7 @@ internal class ProductServices : BlApi.IProduct
     BO.Product ICRUD<BO.Product>.Add(BO.Product entity)
     {
         IMapper map = BLAutoMapper.ProductMappingConfiguration.CreateMapper();
-        var r = dalRep.Product.Add(map.Map<DO.Product>(entity));
+        var r = dal?.Product.Add(map.Map<DO.Product>(entity));
 
         return map.Map<BO.Product>(r);
     }

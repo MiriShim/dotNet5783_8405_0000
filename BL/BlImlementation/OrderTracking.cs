@@ -6,5 +6,5 @@ namespace BlImlementation;
 
 internal class OrderTracking : IOrderTracking
 {
-    private IDal Dal = new DalList();
+    private IDal? dal = DalAPI.Factory.GetDal();
 }

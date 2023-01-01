@@ -1,14 +1,14 @@
 ﻿using DalAPI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class DalList : IDal
+    internal class DalList : IDal
     {
+        public static DalList Instabce {get;} = new DalList();
+          DalList()
+        {
+
+        }
         public IProductCRUD Product => new ProductCRUD();
 
         public IOrderItemCRUD OrderItem => throw new NotImplementedException();

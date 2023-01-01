@@ -1,13 +1,8 @@
 ﻿using BlApi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlImlementation;
 
-public  class BL : BlApi.IBL
+internal  class BL : BlApi.IBL
 {
     public ICart Cart => new Cart();
 

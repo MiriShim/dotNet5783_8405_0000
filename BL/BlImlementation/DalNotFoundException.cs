@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 
-namespace BO;
-
+namespace DO
+{
     [Serializable]
     internal class DalNotFoundException : Exception
     {
@@ -21,4 +21,4 @@ namespace BO;
         {
         }
     }
-
+}

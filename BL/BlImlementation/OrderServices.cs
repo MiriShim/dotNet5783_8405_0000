@@ -7,10 +7,8 @@ namespace BlImlementation;
 
 internal class OrderServices : IOrder
 {
-    private   IDal dalRep = new DalList();
+    private IDal? dal = DalAPI.Factory.GetDal();
 
- 
-    
     public void Delete(BO.Order IEntity)
     {
         throw new NotImplementedException();
@@ -21,7 +19,7 @@ internal class OrderServices : IOrder
 
         //מקבל מספר מזהה ומחזיר את ההזנה המתאימה מתוך רשימת ההזמנות
         //אם הקלט הוא -1 הוא יחזיר את כל הרשימה של ההזמנות 
-        var doOrder = dalRep.Order.GetById(id);
+        var doOrder = dal?.Order.GetById(id);
 
 
         return mapper.Map<BO.Order>(doOrder); ;
@@ -31,7 +29,7 @@ internal class OrderServices : IOrder
     {
         IMapper mapper = BLAutoMapper.OredrMappingConfiguration.CreateMapper();
 
-        return dalRep.Order.GetAll().ToList().ConvertAll<BO.Order>(c => mapper.Map<BO.Order>(c))
+        return dal.Order.GetAll().ToList().ConvertAll<BO.Order>(c => mapper.Map<BO.Order>(c))
             .Where(predicate ?? ((item) => true));
 
 
@@ -58,7 +56,7 @@ internal class OrderServices : IOrder
   public   BO.Order Add(BO.Order entity)
     {
         IMapper map = BLAutoMapper.OredrItemMappingConfiguration.CreateMapper();
-        var r = dalRep.Order.Add(map.Map<DO.Order>(entity));
+        var r = dal?.Order.Add(map.Map<DO.Order>(entity));
 
         return map.Map<BO.Order>(r);
     }

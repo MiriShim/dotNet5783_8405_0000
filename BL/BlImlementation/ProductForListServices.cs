@@ -7,7 +7,7 @@ namespace BlImlementation;
 
 internal class ProductForListServices: IProductForList
 {
-    private IDal Dal = new DalList();
+    private IDal? dal = DalAPI.Factory.GetDal();
 
     public ProductForList Add(ProductForList entity)
     {

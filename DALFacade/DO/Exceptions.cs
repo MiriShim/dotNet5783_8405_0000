@@ -32,7 +32,7 @@ public class EntityException : Exception
 
 
 [Serializable]
-public    class EntityNotFoundException : EntityException
+public class EntityNotFoundException : EntityException
 {
      
     public EntityNotFoundException()
@@ -74,3 +74,22 @@ public class DuplicateIdException : EntityException
     }
 }
 
+[Serializable]
+public  class DalConfigException : Exception
+{
+    public DalConfigException()
+    {
+    }
+
+    public DalConfigException(string? message) : base(message)
+    {
+    }
+
+    public DalConfigException(string? message, Exception? innerException) : base(message, innerException)
+    {
+    }
+
+    protected DalConfigException(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+}

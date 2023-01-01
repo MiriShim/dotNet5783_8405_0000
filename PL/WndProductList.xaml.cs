@@ -21,6 +21,7 @@ namespace PL
     public partial class WndOrderList : Window
     {
         BlApi.IBL bl ;
+
         List<BO.Category >  categories= Enum.GetValues<BO.Category>().ToList() ;
         public WndOrderList(BlApi.IBL bl)
         {
