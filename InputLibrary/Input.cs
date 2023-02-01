@@ -55,7 +55,6 @@ namespace InputLibrary
 
         public static string ReadString(string v ,[Optional]ConsoleColor? color)
         {
-             
             ConsoleColor prevColor = Console.ForegroundColor;
             if (color != null)
                 Console.ForegroundColor = color.Value;
