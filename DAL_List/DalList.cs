@@ -2,9 +2,9 @@
 
 namespace DAL
 {
-    internal class DalList : IDal
+    public class DalList : IDal
     {
-        public static DalList Instabce {get;} = new DalList();
+        public static DalList Instance {get;} = new DalList();
           DalList()
         {
 

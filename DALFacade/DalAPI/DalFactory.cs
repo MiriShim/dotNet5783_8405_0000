@@ -23,10 +23,11 @@ public static class Factory
             throw new DalConfigException("Failed to load {dal}.dll package");
         }
         //אפשר גם::
-     //  Type? t = asem.GetType($"Dal.{dal}");
-
-        Type? type = Type.GetType($"Dal.{dal}, {dal}")
-            ?? throw new DalConfigException($"Class Dal.{dal} was not found in {dal}.dll");
+        //  Type? t = asem.GetType($"DAL.{dal}");
+        //DAL.DALList 
+        var x = asem.GetTypes();
+        System.Type? type = asem.GetTypes().FirstOrDefault(t=>t.Name.Contains(dal))
+            ?? throw new DalConfigException($"Class DAL.{dal} was not found in {dal}.dll");
 
         return type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)?
                    .GetValue(null) as IDal

@@ -28,7 +28,7 @@ namespace DAL
                 .Select(s => getStudent(s)).Where( predicate ?? (p=>true ) );
         }
 
-        private bool asasa(Product? arg)
+        private Product? getStudent(XElement s)
         {
             throw new NotImplementedException();
         }
@@ -57,11 +57,8 @@ namespace DAL
        s.ToIntNullable("ID") is null ? null : new DO.Product()
        {
            Id = (int)s.Element("Id")!,
-           Name = (string?)s.Element("Name"),
-           LastName = (string?)s.Element("LastName"),
-           StudentStatus = s.ToEnumNullable<DO.StudentStatus>("StudentStatus"),
-           BirthDate = s.ToDateTimeNullable("BirthDate"),
-           Grade = s.ToDoubleNullable("Grade"),
+           Name = (string?)s.Element("Name")??"",
+           Category = Enum.Parse<Category> (s.Element("Category")?.Value??"0" )       
        };
 
     }

@@ -19,11 +19,9 @@ internal static class DataSource
         public static int NextOrderItemId { get => ++nextOrderItemId; }
     }
 
-
-    internal static List<Product?> Products = new();
+     internal static List<Product?> Products = new();
     internal static List<Order?> Orders = new();
     internal static List<OrderItem?> OrderItems=new();
-
 
     static DataSource()
     {

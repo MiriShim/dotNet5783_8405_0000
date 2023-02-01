@@ -2,7 +2,7 @@
 	<dal>list</dal>
 	<!--<dal>xml</dal>-->
 	<dal-packages>
-		<list>DALList</list>
+		<list>DalList</list>
 		<xml>DALXml</xml>
 		<sql>DALSql</sql>
 	</dal-packages>

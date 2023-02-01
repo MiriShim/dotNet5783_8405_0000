@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,12 @@ public class Product
     public Category? Category { get; set; }
     public int? InStock { get; set; }
 
+    public ProductStatus ProductStatus { get; set; } = DO.ProductStatus.State1;
+    public DateTime UpdateAt { get; set; }
+
     public override string ToString() => $@"
         id = {Id},
+        {nameof (ProductStatus)} = {ProductStatus },
         name = {Name},
         price = {Price},
         category = {Category},

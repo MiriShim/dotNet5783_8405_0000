@@ -3,7 +3,8 @@ namespace BlImlementation;
 
 public class BLAutoMapper
 {
-    //Ignore()??
+    //Ignore()
+    //??
     //isn't it possible to put there default values???
     public static  MapperConfiguration OredrMappingConfiguration = new MapperConfiguration(cnf =>
     cnf.CreateMap<BO.Order, DO.Order>()

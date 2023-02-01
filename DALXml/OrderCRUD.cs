@@ -11,7 +11,7 @@ namespace DAL
 
         public Order Add(Order entity)
         {
-           ccc
+            throw new Exception();
         }
 
         public IEnumerable<Order> GetAll(Func<Order, bool>? predicate = null)
@@ -37,8 +37,7 @@ namespace DAL
 
         static IEnumerable<XElement> createOrderElement(DO.Order order)
         {
-            return order.
-
+ 
             yield return new XElement("ID", order.ID);
 
             if (order.OrderDate is not null)

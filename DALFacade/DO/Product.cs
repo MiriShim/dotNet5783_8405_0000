@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DO;
 
@@ -6,7 +7,7 @@ namespace DO;
 /// <summary>
 /// Structure for Product on sale resource
 /// </summary>
-public struct Product
+public struct Product : INotifyPropertyChanged
 {
     
     /// <summary>
@@ -22,7 +23,7 @@ public struct Product
     /// <summary>
     /// Current sell price of product
     /// </summary>
-    public int Price { get; set; }
+     public int Price { get; set; }
 
     /// <summary>
     /// Category of product in the sotre product list
@@ -34,6 +35,13 @@ public struct Product
     /// </summary>
     public int? InStock { get; set; }
 
+     public event PropertyChangedEventHandler PropertyChanged;
+
+    private void NotifyPropertyChanged(  String propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public override string ToString() => $@"
         {nameof(Id)}={Id}: {Name}, 
         {nameof(Category )} - {Category}
@@ -44,6 +52,9 @@ public struct Product
     public override bool Equals(object? obj)
     {
         if (obj == null) throw new EntityException();
-        return (obj as Product?).Value.Id .Equals(this.Id) ;
+        return ((Product)obj).Id.Equals(this.Id) ;
     }
+    public DateTime UpdateAt { get; set; }
+    public ProductStatus ProductStatus { get; set; }
+
 }

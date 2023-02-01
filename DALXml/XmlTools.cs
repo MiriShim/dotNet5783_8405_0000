@@ -116,7 +116,7 @@ static class XMLTools
         return new XElement(
             entity.GetType().Name,
      from a in entity.GetType().GetProperties()
-     select new XElement(a.Name, a.GetValue(entity));
+     select new XElement(a.Name, a.GetValue(entity)));
 
     }
 

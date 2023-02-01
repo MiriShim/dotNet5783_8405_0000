@@ -1,35 +1,27 @@
 ﻿using DalAPI;
 using DO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace DAL;
 
 internal class ProductCRUD : IProductCRUD
 {
-    
-
-
     public bool Remove(int id)
     {
         return false;
     }
-
-    public Product Update(Product? entity)
+    [MethodImpl(MethodImplOptions.Synchronized)]
+    public Product? Update(DO.Product? entity)
     {
-        if (entity is null) 
-            throw new EntityException();
-//        Product? p = DataSource.Products.FirstOrDefault  (a => a.HasValue && a.Value.ID == entity.Value.ID);
-        int ix = DataSource.Products.IndexOf(entity);
-        DataSource.Products[ix] = entity;
+        Product sureProduct=entity?? throw new EntityException();
+        //        Product? p = DataSource.Products.FirstOrDefault  (a => a.HasValue && a.Value.ID == entity.Value.ID);
+        int ix = DataSource.Products.IndexOf(sureProduct);
+        
+        sureProduct.UpdateAt = DateTime.Now;
+         DataSource.Products[ix] = sureProduct ;
 
-        return entity.Value ;
-    }      
+        return sureProduct ;
+    }
 
     public IEnumerable<Product?> GetAll(Func<Product?, bool>? predicate = null)
     {
@@ -46,20 +38,17 @@ internal class ProductCRUD : IProductCRUD
     {
         if (entity == null)
             throw new EntityException();
-        Product pr = entity.Value;;
+        Product pr = entity.Value; ;
 
         pr.Id = DataSource.GetUniqueProductId();
         DataSource.Products.Add(pr);
         return pr;
     }
 
-   public Product? GetById(int id)
+    public Product? GetById(int id)
     {
         return DataSource.Products.Single(p => (p.HasValue && p.Value.Id == id)) ?? throw new EntityNotFoundException();
     }
-
-    Product? ICRUD<Product?>.Update(Product? entity)
-    {
-        throw new NotImplementedException();
-    }
 }
+
+     

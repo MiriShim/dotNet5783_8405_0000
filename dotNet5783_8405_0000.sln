@@ -24,7 +24,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML", "XML", "{A9CB95D7-AA7
 		XML\dal_config.xml = XML\dal_config.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALXml", "DALXml\DALXml.csproj", "{455724BA-6667-4FD8-B29E-B298CF503EBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALXml", "DALXml\DALXml.csproj", "{455724BA-6667-4FD8-B29E-B298CF503EBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulatorLib", "Simulator\SimulatorLib.csproj", "{63B17B3E-AD49-4B8F-B957-5BEB28088F1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,10 @@ Global
 		{455724BA-6667-4FD8-B29E-B298CF503EBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{455724BA-6667-4FD8-B29E-B298CF503EBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{455724BA-6667-4FD8-B29E-B298CF503EBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63B17B3E-AD49-4B8F-B957-5BEB28088F1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63B17B3E-AD49-4B8F-B957-5BEB28088F1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63B17B3E-AD49-4B8F-B957-5BEB28088F1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63B17B3E-AD49-4B8F-B957-5BEB28088F1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

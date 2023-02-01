@@ -11,7 +11,7 @@ static class DalConfig
     //בנאי סטטי
     static DalConfig()
     {
-        XElement dalConfig = XElement.Load(@"..\xml\dal_config.xml")
+        XElement dalConfig = XElement.Load(@"..\..\..\..\xml\dal_config.xml")
             ?? throw new DalConfigException("dal_config.xml file is not found");
 
        string?  dalLayerName = dalConfig.Element("dal")?.Value ?? throw new DalConfigException("שגאה בגישה לקונפיג");

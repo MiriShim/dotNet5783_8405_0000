@@ -9,4 +9,5 @@ namespace BlApi;
 
 public interface IProduct : ICRUD<BO.Product>
 {
+    BO.Product SelectProductToState();
 }
