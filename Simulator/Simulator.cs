@@ -6,35 +6,39 @@ using System.Threading.Tasks;
 
 namespace SimulatorLib
 {
-    public delegate void StateChangeDel(DO.ProductStatus prevState, DateTime startAt, DO.ProductStatus newState, DateTime endAt);
-    public delegate void ProductSelectedDel(BO.Product product);
+    public delegate void StateChangeDel(BO.ProductStatus prevState, DateTime startAt, BO.ProductStatus newState, int durationInMinuts);
+    public delegate void ProductSelectedDel(BO.Product product,int willUpdatedAt);
     public class Simulator
-    {        
+    {
+        public bool IsAlive { get; set; } = false;
         public static Simulator GetInstance(BlApi.IBL _bl)
         {
             bl = _bl;
-            return nested.simulatorInstance;
+            return Nested.simulatorInstance;
             //if (_simulator == null)
             //    _simulator = new();
             //return _simulator;
         }
          Simulator()
         {
-                
         }
-        class nested
+        class Nested
         {
             internal static readonly Simulator simulatorInstance = new Simulator ();
-           }
+        }
+
        static  BlApi.IBL? bl;
         volatile bool stopRequest = false;
-        event Action? simulatorStopedEvent;
-        event StateChangeDel? stateChangedEvent;
-        event ProductSelectedDel? productSelectedEvent;
+        
+        event Action SimulatorStopedEvent;
+        event StateChangeDel? StateChangedEvent;
+        event ProductSelectedDel? ProductSelectedEvent;
 
         Random random = new Random();
         public void SetSimulatorOn()
         {
+            //if simulator is off
+            IsAlive= true;
             Thread thread = new Thread(simulatorDo);
             stopRequest = false;
             thread.Start();
@@ -43,39 +47,52 @@ namespace SimulatorLib
         public void SetSimulatorOff()
         {
             stopRequest = true;
+            IsAlive = false;
         }
 
         private void simulatorDo(object? obj)
         {
             while (!stopRequest)
             {
-                BO.Product current = bl.Product.SelectProductToState();
-                productSelectedEvent?.Invoke (current);
-
+                BO.Product? current = bl?.Product.SelectProductToState() ;
+                 
                 if (current == null)
                 {
-                    Thread.Sleep(1000);
-                    continue;
+                    stopRequest = true;
+                    break;
+                    //Thread.Sleep(1000);
+                    //continue;
                 }
                 if (stopRequest) break;//אם יש בקשת עצירה
-                int treatTime = random.Next(3000, 10000);
-                DO.ProductStatus  prevState = current.ProductStatus;
+ 
+                int treatTime = random.Next(2000, 10000);
+
+                BO.ProductStatus  prevState = current.ProductStatus;
 
                 DateTime startChangeAt = DateTime.Now; //שמירת זמן תחילת הפעולה
+                 
+                ProductSelectedEvent?.Invoke(current,treatTime/1000 );
+
                 Thread.Sleep(treatTime);//המתנה של הזמן הנדרש לביצוע השינוי במצב (רנדומלי)
+
                 current.ProductStatus++;
+                current.LastUpdateAt = DateTime.Now;
                 bl.Product.Update(current); //שמירת האוביקט עם המצב החדש
 
-                stateChangedEvent?.Invoke ((DO.ProductStatus)prevState, startChangeAt, current.ProductStatus, DateTime.Now);
+                StateChangedEvent?.Invoke ( prevState, startChangeAt, current.ProductStatus, treatTime/1000);
             }
-            simulatorStopedEvent?.Invoke ();
+            SimulatorStopedEvent?.Invoke ();
         }
+        List<IObserveSimulator> observers = new List<IObserveSimulator>();
 
         public void RegisterSimulatorStoped(Action del)
-        { simulatorStopedEvent += del; }
+        { SimulatorStopedEvent += del; }
+        //אם רוצים לממש את הסימולטור  כאבזרבר מושלם
+        public void RegisterSimulatorStoped(IObserveSimulator del)
+        { observers.Add(del); }
         public void RegisterStateChanged(StateChangeDel del)
-        { stateChangedEvent += del; }
+        { StateChangedEvent += del; }
         public void RegisterProductSelected(ProductSelectedDel del)
-        { productSelectedEvent += del; }
+        { ProductSelectedEvent += del; }
     }
 }

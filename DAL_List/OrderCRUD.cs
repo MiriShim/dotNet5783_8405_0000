@@ -28,10 +28,7 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Order> GetAll(Func<Order, bool>? predicate = null)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public Order GetById(int id)
         {

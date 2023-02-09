@@ -8,7 +8,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        Simulator  SimulatorOb ;
+       readonly Simulator  SimulatorOb ;
         BlApi.IBL bl = BlApi.BL_Factory.Get();
 
         public MainWindow()
@@ -36,5 +36,6 @@ namespace PL
             SimulatorWindow simulatorWindow = new();
             simulatorWindow.Show();
         }
+ 
     }
 }

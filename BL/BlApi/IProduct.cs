@@ -1,4 +1,5 @@
-﻿using DalAPI;
+﻿using BO;
+using DalAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,5 @@ namespace BlApi;
 
 public interface IProduct : ICRUD<BO.Product>
 {
-    BO.Product SelectProductToState();
+    Product SelectProductToState();
 }

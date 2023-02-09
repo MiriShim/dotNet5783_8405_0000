@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using System.Text;
@@ -21,7 +23,7 @@ namespace PL
     public partial class WndOrderList : Window
     {
         BlApi.IBL bl ;
-
+        ObservableCollection<ProductInProgress> ObservableProducts;
         List<BO.Category >  categories= Enum.GetValues<BO.Category>().ToList() ;
         public WndOrderList(BlApi.IBL bl)
         {
@@ -31,9 +33,9 @@ namespace PL
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            lvProducts.ItemsSource = bl.Product .GetAll() ;
+           // lvProducts.ItemsSource =  bl.Product .GetAll() ;
             cmbCategories.ItemsSource = Enum.GetValues(typeof(BO.Category ));
-            
+             
         }
 
         private void cmbCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)

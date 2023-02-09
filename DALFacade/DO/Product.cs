@@ -54,7 +54,7 @@ public struct Product : INotifyPropertyChanged
         if (obj == null) throw new EntityException();
         return ((Product)obj).Id.Equals(this.Id) ;
     }
-    public DateTime UpdateAt { get; set; }
+    public DateTime LastUpdateAt { get; set; }
     public ProductStatus ProductStatus { get; set; }
 
 }

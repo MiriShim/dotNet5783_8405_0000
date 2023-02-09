@@ -1,20 +1,12 @@
-﻿using BO;
+﻿using AutoMapper;
+using BO;
+using PO;
 using SimulatorLib;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
+using System.Diagnostics;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -22,19 +14,20 @@ namespace PL
     /// Interaction logic for SimulatorWindow.xaml
     /// </summary>
     public partial class SimulatorWindow : Window, INotifyPropertyChanged
-    {
+    {  
+       readonly  Stopwatch sw = new();
         Simulator SimulatorOb;
-        private void NotifyPropertyChanged(String info)
+        BackgroundWorker backgroundWorker;
+        private void NotifyPropertyChanged(string info)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private PO.ProductInProgress currentProduct= new ProductInProgress() { Name = "???????", PrevStatus = ProductStatus.State2  };
 
-        private Product currentProduct;
-
-        public BO.Product CurrentProduct
+        public PO.ProductInProgress CurrentProduct 
         {
             get => currentProduct;
             set
@@ -43,8 +36,10 @@ namespace PL
                 {
                     currentProduct = value;
                     if (Dispatcher.Thread.IsAlive)
-                    Dispatcher.Invoke(() => NotifyPropertyChanged($"current product is {this.Name}"));
-                    
+                        //Dispatcher.Invoke(() => 
+                        NotifyPropertyChanged("CurrentProduct");
+                            //);
+
                 }
             }
         }
@@ -53,74 +48,132 @@ namespace PL
         {
             InitializeComponent();
         }
-        Timer timerForClock = new(1000);
-         
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            timerForClock.Elapsed += TimerForClock_Elapsed;
-            timerForClock.Start();
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.WorkerSupportsCancellation = true;
 
-            BackgroundWorker backgroundWorker = new BackgroundWorker();
-              
             backgroundWorker.DoWork += BackgroundWorker_DoWork;
+            backgroundWorker.ProgressChanged += BackgroundWorker_ProgressChanged;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
+            
             backgroundWorker.RunWorkerAsync();
 
             SimulatorOb = Simulator.GetInstance(BlApi.BL_Factory.Get());
+            
             SimulatorOb.RegisterProductSelected(productSelectedExe);
             SimulatorOb.RegisterSimulatorStoped(simulatorStoppedExe);
             SimulatorOb.RegisterStateChanged(StateChangedExe);
+
+            //    הסימולטור כבר מופעל מחלון הראשי
+            //             SimulatorOb.SetSimulatorOn();
+
         }
 
-        private void TimerForClock_Elapsed(object? sender, ElapsedEventArgs e)
+        private void BackgroundWorker_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
-            if (Dispatcher.Thread.IsAlive)
-                Dispatcher.BeginInvoke(() =>
-                {
-                tbClock.Text = DateTime.Now.ToString("h:mm:ss");
-                    DO.ProductStatus currentStatus = currentProduct?.ProductStatus ?? DO.ProductStatus.State1; ;
-                    pb.Value = (double )currentStatus ;
-                     
-                }
-            );
+            lblStooped.Visibility = Visibility.Visible;  
+            //todo: do somthing to notify user that the simulator stopped safty;
+        }
+
+        private void BackgroundWorker_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            tbClock.Text = DateTime.Now.ToString("h:mm:ss");
+            progressBar.Value = e.ProgressPercentage;
         }
 
         private void BackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
         {
-            SimulatorOb = Simulator.GetInstance(BlApi.BL_Factory.Get());
-            SimulatorOb.SetSimulatorOn();
+            sw.Start(); 
+            while (!((BackgroundWorker)sender).CancellationPending )
+            {
+                if (!Dispatcher.Thread.IsAlive) { e.Cancel = true; break; }
+                if (CurrentProduct == null) continue;
+ 
+                if (CurrentProduct?.WillUpdateAt == 0)//בשביל הפעם הראשונה שעדין אין
+                    continue;
+                int minutes = CurrentProduct?.WillUpdateAt ?? 1;
 
-            SimulatorOb.RegisterProductSelected(productSelectedExe);
-            SimulatorOb.RegisterSimulatorStoped(simulatorStoppedExe);
-            SimulatorOb.RegisterStateChanged(StateChangedExe);
+                //חישוב אחוז הזמן שחלף
+                double per = sw.ElapsedMilliseconds /1000.0 / (double)CurrentProduct?.WillUpdateAt *100   ; //(DateTime.Now - CurrentProduct.StartChangeAt).Minutes / minutes;
+               
+                ((BackgroundWorker)sender ).ReportProgress((int)per);
+               
+                Debug.WriteLine(sw.ElapsedMilliseconds);
+                Debug.WriteLine(CurrentProduct?.WillUpdateAt);
+                Debug.WriteLine(per);
+                Debug.WriteLine((int)per);
+                Debug.WriteLine("=====================");
+
+                Thread.Sleep(1000);
+            }
+
+
         }
 
         private void simulatorStoppedExe()
         {
-            timerForClock.Stop();
+            backgroundWorker.CancelAsync();
+
+        }
+        void fillUI()
+        {
+            //tbProductName.Text = CurrentProduct.Name;
+            // tbNewState.Text = ((ProductStatus)((int)CurrentProduct.PrevStatus) + 1).ToString();
+            //tbStartAt.Text = CurrentProduct.StartChangeAt .ToString("h:mm:ss");
+            ////
+            //tbProductName.Text = CurrentProduct?.Name;
+            //tbWillUpdate.Text = currentProduct.WillUpdateAt.ToString() +" שניות" ;
+            
+         }
+
+
+        private void StateChangedExe(BO.ProductStatus prevState, DateTime startAt, BO.ProductStatus newState, int durationInMinuts)
+        {
+            if (Dispatcher.Thread.IsAlive && currentProduct!=null)
+                //Dispatcher.Invoke(() =>
+                {
+                    CurrentProduct.PrevStatus = prevState;
+                    CurrentProduct.StartChangeAt = startAt;
+                    CurrentProduct.WillUpdateAt = durationInMinuts;// CurrentProduct.StartChangeAt.AddMinutes(durationInMinuts) ;
+
+                    fillUI();
+
+                };//);
+        }
+
+        private void productSelectedExe(Product product, int willUpdateAt)
+        {
+            sw.Restart();
+
+            MapperConfiguration conf = new MapperConfiguration(a => a.CreateMap<BO.Product, ProductInProgress>()
+            .ForMember(m=>m.PrevStatus,a=>a.MapFrom(x=>x.ProductStatus))
+            .ForMember(m=>m.WillUpdateAt ,a=>a.MapFrom(y=>willUpdateAt))
+            .ReverseMap());
+            Mapper mapper = new Mapper(conf);
+
+            CurrentProduct = mapper.Map<ProductInProgress>(product);
+            CurrentProduct.WillUpdateAt = willUpdateAt;
+
+            CurrentProduct.PrevStatus = product.ProductStatus; ;
+            CurrentProduct.StartChangeAt = DateTime.Now  ;
+ 
+            //if (Thread.CurrentThread.IsAlive )
+            //    if (Dispatcher.Thread.IsAlive)
+            //Dispatcher.Invoke(() =>
+            //{
+            //    fillUI();
+            //});
+        }
+
         
-        }
 
-        private void StateChangedExe(DO.ProductStatus prevState, DateTime startAt, DO.ProductStatus newState, DateTime endAt)
+        private void stop_Clicked(object sender, RoutedEventArgs e)
         {
-            if (Dispatcher.Thread.IsAlive)
-            Dispatcher.Invoke(() =>
-            {
-                tbPrevState  .Text = prevState.ToString();
-                tbNewState.Text = newState.ToString();
-                pb.Value = (int)newState;
-                
-            });
-        }
-
-        private void productSelectedExe(Product product)
-        {
-            CurrentProduct = product;
-            Dispatcher.Invoke(() =>
-            {
-                tbProductName.Text = product?.Name;
-
-                //tbPrevStatus.Text = product.ProductStatus.ToString();
-            });
+            backgroundWorker.CancelAsync();
+            SimulatorOb.SetSimulatorOff();
         }
     }
 }

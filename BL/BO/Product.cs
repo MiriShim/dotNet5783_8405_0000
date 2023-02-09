@@ -15,8 +15,8 @@ public class Product
     public Category? Category { get; set; }
     public int? InStock { get; set; }
 
-    public ProductStatus ProductStatus { get; set; } = DO.ProductStatus.State1;
-    public DateTime UpdateAt { get; set; }
+    public ProductStatus ProductStatus { get; set; } = BO.ProductStatus.State1;
+    public DateTime LastUpdateAt { get; set; }
 
     public override string ToString() => $@"
         id = {Id},

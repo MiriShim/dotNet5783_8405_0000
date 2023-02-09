@@ -4,18 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
+        xmlns:conv="clr-namespace:PL.Converters"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         FlowDirection="RightToLeft" 
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
-    Title="סימולטור" Height="450" Width="400">
-    <Grid Margin="30" 
-          DataContext="{Binding CurrentProduct,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
-          TextBlock.FontSize="20">
+    Title="סימולטור" Height="480" Width="400">
+    <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverterObj" />
+    </Window.Resources>
+    <Grid Margin="30"     TextBlock.FontSize="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
-
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -30,23 +31,26 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0">המוצר הנוכחי:</TextBlock>
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name ,Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged }" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding CurrentProduct.Name ,Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged }" />
         <TextBlock Grid.Row="1" Grid.Column="0">סטטוס קודם:</TextBlock>
-        <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding }" x:Name="tbPrevState"/>
+        <TextBlock  Grid.Row="1" Grid.Column="1" Text="{Binding CurrentProduct.PrevStatus   }" />
 
-        <TextBlock Grid.Row="2" Grid.Column="0"  VerticalAlignment="Top">:תחילת טיפול</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0"  VerticalAlignment="Top">תחילת טיפול:</TextBlock>
         <TextBlock  Grid.Row="2" Grid.Column="1" x:Name="tbStartAt"  />
         <TextBlock Grid.Row="3" Grid.Column="0">סטטוס חדש:</TextBlock>
         <TextBlock  Grid.Row="3" Grid.Column="1" x:Name="tbNewState" />
-        <TextBlock Grid.Row="4" Grid.Column="0">סיום טיפול:</TextBlock>
-        <TextBlock  Grid.Row="4" Grid.Column="1" Text="{Binding Path=UpdateAt}" />
+        
+        <TextBlock Grid.Row="4" Grid.Column="0">  סיום טיפול תוך:</TextBlock>
+        <TextBlock  Grid.Row="4" Grid.Column="1" Text="{Binding Path=CurrentProduct.LastUpdateAt}" x:Name="tbWillUpdate" />
+        
         <TextBlock Grid.Row="5" Grid.Column="0">זמני: שם המוצר</TextBlock>
         <TextBlock Grid.Row="5" Grid.Column="1" x:Name="tbProductName"  />
 
-        <TextBlock  Grid.Row="6" Grid.Column="1" Text="{Binding DataContext.PrevStatus , RelativeSource={RelativeSource Mode=Self}}"/>
-        <ProgressBar x:Name="pb" Value="0" Minimum="0" Maximum="6"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="4"  />
+        <TextBlock  Grid.Row="6" Grid.Column="1" Text="{Binding Path=CurrentProduct.PrevStatus}" />
+        <ProgressBar x:Name="progressBar" Value="0" Minimum="0" Maximum="100"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="4"  />
         <TextBlock x:Name="tbClockLable" Text ="שעון"   Grid.Column="0" Grid.Row="7"    />
         <TextBlock x:Name="tbClock"   Grid.Column="1" Grid.Row="7"  HorizontalAlignment="Center"  />
-        <Button Content="stop simulator" Grid.Row="8" Grid.ColumnSpan ="2" Margin="4" />
+        <Button Content="stop simulator" Grid.Row="8" Grid.ColumnSpan ="2" Margin="4" Click="stop_Clicked" />
+        <Label x:Name="lblStooped"   Visibility="{Binding Path=SimulatorOb.IsAlive, Converter={StaticResource BoolToVisibilityConverterObj}}"  Content="Stoped" HorizontalAlignment="Center"  Grid.Row="9" Grid.ColumnSpan ="2" Margin="4,0" />
     </Grid>
 </Window>

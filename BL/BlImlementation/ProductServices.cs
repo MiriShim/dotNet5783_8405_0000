@@ -46,13 +46,13 @@ internal class ProductServices : BlApi.IProduct
         throw new NotImplementedException();
     }
 
-    public Product SelectProductToState()
+    public Product? SelectProductToState()
     {
         var x = GetAll();
         var x1 = x.Where(p => (int?)p?.ProductStatus < 6);
-        var x2 = x1.OrderBy(p => p?.UpdateAt);
-        var x3 = x2.FirstOrDefault();
-        return x3;
+        var x2 = x1.MinBy (p => p?.LastUpdateAt);
+        //Product pResult = GetAll().Where(p => (int?)p?.ProductStatus < 6).MinBy(p => p?.LastUpdateAt);
+        return x2;
     }
 
     public BO.Product Update(BO.Product IEntity)

@@ -17,7 +17,7 @@ internal class ProductCRUD : IProductCRUD
         //        Product? p = DataSource.Products.FirstOrDefault  (a => a.HasValue && a.Value.ID == entity.Value.ID);
         int ix = DataSource.Products.IndexOf(sureProduct);
         
-        sureProduct.UpdateAt = DateTime.Now;
+        sureProduct.LastUpdateAt = DateTime.Now;
          DataSource.Products[ix] = sureProduct ;
 
         return sureProduct ;

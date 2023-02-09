@@ -60,7 +60,8 @@ internal static class DataSource
                 Price = rand.Next(200),
                 Category = Category.Flowers,
                 InStock = rand.Next(50),
-            });
+                ProductStatus = (ProductStatus)rand.Next(1, 5)
+            }) ;
         }
     }
 
