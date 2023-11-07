@@ -3,10 +3,13 @@ using BlApi;
 
 using InputLibrary;
 
+
+
 Console.ReadLine();
 
 
 IBL bl = new BlImlementation.BL();
+//יחיחיחי
 
 
 BO.Order order = new BO.Order() { Status =BO.OrderStatus.Recived,CustumerAdress="aaaaaaaa",CustomerEmail="dsdsdsd",CustomerName="Tamara"};
